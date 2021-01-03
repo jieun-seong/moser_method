@@ -1,0 +1,51 @@
+
+#{
+# This program implements a method in J. Moser 66 lectures 
+# to compute the conjugacy of a circle map to a rotation. 
+#
+# It is a program designed to illustrate the algorithm.  It is 
+# not a production quality program.
+#      It does not include checks of correctness of the programs
+#      The calculations proceed without checking that the results 
+#          are correct. It would suffice to estimate sobolev norms. 
+#      It uses complex Fourier transforms. Using real, one can reduce 
+#         the space and computation time by a factor 2, 
+#       We do not attempt to make continuation.
+#	We do not include the ability of increasing the number of terms 
+#	   dynamically. Changing N requires to restart and reinitialize.  
+#      The program wil develop instabilities if N  is bigger that 1024 or so. 
+#
+#      We have used mainly vector operations in Octave which 
+#      are comparable or faster than in C. So, the program is in 
+#      the ballpark of C programs.  It has been tested slightly in Matlab.
+#  
+# We consider f(x) = x + lambda*sin(x) + drift
+# We want to find h(x) = x + hath(x) (with hath periodic of period 2 pi) 
+# and drift  in such a way  that 
+# f (h(x)) + drift = h(x + twopiomega) 
+# 
+# Note we obtain a quadratically convergent method, but no matrix NxN is 
+# stored. Storage required is a multiple of N. 
+#}
+
+# N is the number of Fourier modes. 
+N = 1024; 
+omega = (sqrt(5) -1)/2;
+global twopiomega = 2*pi*omega
+global lambda = 0.1;
+
+global xarray;
+global farray;  
+global derarray; 
+global shiftarray; 
+global cohomarray; 
+
+initialize(N)
+
+# This is an inialization of the variables. 
+hath = linspace(0,0, N); 
+global drift  = twopiomega; 
+
+
+
+
